@@ -1,0 +1,12 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 4fr;
+    column-gap: 40px red;
+    column-rule-color: yellow;
+    background:url('images/')
+}
