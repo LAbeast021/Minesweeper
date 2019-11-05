@@ -1,4 +1,14 @@
 // /////////////// CONSTANT///////////////////////
+const numbers = {
+    1 : "green",
+    2 : "yellowgreen",
+    3 : "yellow",
+    4 : "orange",
+    5 : "red",
+    6 : "purple",
+    7 : "pink",
+    8 : "olivegreen"
+};
 // /////////////// VAR //////////////////////////
 let column, row, bombPercentage, board, randomBombs, divVal, divId ;
 var bombs = [];
@@ -17,7 +27,7 @@ $(".difficulty").on("click","button",function(){
     for (i=0 ; i <= bombPercentage -1 ; i++){
         randomBombs = Math.floor(Math.random()*(column*row))
         bombs.push(randomBombs);
-        board.splice(bombs[i] , 1 , -1);
+        board.splice(bombs[i] , 1 , 1);
     }
     console.log(bombPercentage);
 })
@@ -25,42 +35,73 @@ $(".start").on("click", function(){
     render();
 })
 $(".container").on("click", "div", clickHandler)
-
-
-
-
-
+// ////// RIGHT CLICK FOR FLAGS //////////////////////
+// $('.container').bind('contextmenu','button', function(){
+//     if (this.which == 3){ // can also use button instead of which.
+//         // prevent default action.
+//         this.preventDefault(); }
+//     console.log("rasssss kilik");
+// })
 
 
 // ////////////// FUNCTIONS /////////////////
 function clickHandler(){
     if(this.value){
+        divId = parseInt(this.id);
         divVal = this.value;
-        divId = this.id;
-        console.log(` id = ${this.id} and value = ${this.value}`);
-        if(divVal === 1) console.log("left top corner");
-        else if(divVal === column) console.log("right top corner");
-        else if (divVal === column * row) console.log(" right bottom corner ");
-        else if (divVal === (column*row) - column + 1) console.log(" left bottom corner");
-
-        else if (divVal/column === Math.floor((divVal+1)/column)){
-            console.log("right Wall")
-        }
-        else if((divVal-1)/column === Math.floor(divVal/column)){
-            console.log("left Wall")
-        }
-
-        
+        // console.log(` id = ${this.id} and value = ${this.value}`);
+        if(!boarderGuard(divVal, divId, this)){
+            if(document.getElementById(divId + column) && document.getElementById(divId - column) ){
+                this.textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+            }
+            else{
+                if(document.getElementById(divId + column)){
+                    this.textContent = (board[divId + 1]) +  (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1]);
+                    console.log("divar bala")
+                }
+                else if(document.getElementById(divId - column)){
+                    this.textContent = (board[divId + 1]) +  (board[divId - 1]) + (board[divId - column - 1]) + (board[divId - column]) + (board[divId - column + 1]);
+                    console.log("divar paiin ")
+                }
+            }
+        }    
     }
     else{
-        alert("YOU LOST")
+        console.log("YOU LOST")
     }
+    num = parseInt(this.textContent);
+    this.classList.add (numbers[num]);
 }
-
-
-
-
-
+function boarderGuard (divVal, divId, clicked){
+    if(divVal === 1){ 
+            clicked.textContent = board[divId + 1] + board[divId + column] + (board[divId + column + 1])
+       return true;
+    }
+    else if(divVal === column){
+            clicked.textContent = board[divId - 1] + board[divId + column] + board[divId +( column - 1)]
+        return true;
+        ;}
+    else if (divVal === column * row) {
+            clicked.textContent = board[divId - 1]  + board[divId - column] + board[divId - ( column + 1)]
+        return true;
+        ;}
+    else if (divVal === (column*row) - column + 1) {
+            clicked.textContent = board[divId + 1]  + board[divId - column] + board[divId -  (column - 1)]
+        
+        return true;
+        ;}
+    else if (divVal/column === Math.floor((divVal+1)/column)){
+                clicked.textContent = board[divId - 1] + board[divId + column] + board[divId - column] + board[divId + column - 1] + board[divId - column - 1]
+            return true   
+        }
+    else if((divVal-1)/column === Math.floor(divVal/column)){
+            clicked.textContent = board[divId + 1] + board[divId + column] + board[divId - column] + board[divId + column + 1] + board[divId - column + 1]
+            return true;
+        }
+    else{
+           return false;
+        }
+}
 function render(){
     $(".size, .difficulty").fadeOut(1000);
     container.style["grid-template-columns"] = `repeat(${column}, 31px)`;
@@ -68,7 +109,9 @@ function render(){
     for(i=0 ; i <(column * row) ; i++){
         squars = document.createElement('div');
         squars.id = i;
+        squars.textContent = "";
         container.appendChild(squars);
         bombs.includes(i) ? squars.classList.add("bomb") : squars.value = i+1;  
     }}
-    $(".container").fadeOut().fadeIn(4000)
+    $(".container").fadeOut(1000).fadeIn(4000);
+    
