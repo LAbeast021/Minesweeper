@@ -1,100 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap');
 *{
     box-sizing: border-box;
 }
 body{
-    margin: 0;
-    display: grid;
-    /* grid-template-rows: 1fr; */
-    grid-template-columns: 1fr 1fr;
-    /* background-image: url("../images/wall.jpg"); */
-    /* height: auto; */
-}
-/* ///////////////////// Menu ////////////////////////////////////////////////////////////////////////////////////////////////////// */
-.menue{
-    border-right: 5px solid black;
-    width: 100%;
-    
-}
-.size{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;  
+    margin: 0;
+    margin-top:2% ;
+    background-color: rgb(26, 25, 25);
+}
+.background{
+    margin-left: 3.1%;
+    margin-bottom: -2%;
+}
+/* ///////////////////// Menu ////////////////////////////////////////////////////////////////////////////////////////////////////// */
+.size{
+    display: flex;
     border: 4px solid black ;
-    margin: 5%;
-    border-radius: 200px;
+    border-radius: 20px;
+    width: 500px;
+    background: #C1CAD6;
     
 }
 .size button{
-    border: 2px solid red;
+    border: 2px solid rgb(54, 60, 85);
+    color: black;
+    height: 30px;
     border-radius: 120px;
-    margin: 5%;
     width: 30%;
+    margin: 5%;
     background-color: initial;
     outline: none;
     cursor: pointer;
 }
 .difficulty{
     display: flex;
-    flex-direction: column;
-    align-items: center;
     border: 4px solid black ;
-    margin-left: 0%;
-    border-radius: 200px;
+    border-radius: 20px;
+    width: 100%;
+    background: #C1CAD6;
 }
 .difficulty button{
-    border: 2px solid red;
+    color: black;
+    height: 30px;
+    border: 2px solid rgb(54, 60, 85);
     border-radius: 120px;
     margin: 5%;
-    width: 30%;
+    width: 15%;
     background-color: initial;
     outline: none;
     cursor: pointer;
+    width: 30%;
 }
 .start{
-    width: 60px;
-    border: 4px solid greenyellow;
+    width: 40%;
+    color: white;
+    border: 3px solid white;
+    background: rgb(50, 67, 71);
+    border-radius: 120px;
+    margin-left: 30%;
 }
 /* ///////////////////////////////////////// Numbers ///////////////////////////////////// */
 .green{
     color: rgb(21, 190, 21);
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .yellowgreen{
     color: yellowgreen;
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .yellow{
     color: yellow;
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .orange{
     color: rgb(206, 144, 28);
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .red{
     color: rgb(192, 33, 33);
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .purple{
     color: rgb(122, 21, 190);
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .pink{
     color: rgb(211, 81, 178);
-    background-color: orange;
     font-size: 20px;
+    font-family: 'Yeon Sung', cursive;
 }
 .greenolive{
     color: rgb(72, 107, 72);
-    background-color: orange;
     font-size: 20px;
-}
+    font-family: 'Yeon Sung', cursive;
+};
 /* //////////////////////////////////////////////////////BOARD///////////////////////////////////////////////////////////////////// */
 .rightColumn{
     display: flex;
@@ -106,27 +113,28 @@ body{
     display: grid;
     grid-template-rows: repeat(25, 34px);
     grid-template-columns: repeat(40, 34px);
-    grid-column-gap: 0;
-    grid-row-gap: 0.5px;
-    transition: 0.5s;
-    margin: 10% ;
-    animation: "light" 2s 0 3 alternate; 
+    grid-column-gap: 3px;
+    grid-row-gap: 3px;
+    margin-bottom: 1%;
 }
 .playground{
-    background-color:gray;
-    border: 5px solid black;
-    width: 33px;
-    height: 33px;
+    background-image: url(../images/astronaut-icon-vector.png);
+    background-repeat: no-repeat;
+    background-size: 33px;
+    border: 1.5px solid rgb(179, 172, 172);
+    border-radius: 12px;
+    width: 35px;
+    height: 35px;
     text-align: center;
     cursor: pointer;
 }
 .bomb{
-    background: rgb(61, 102, 73);
+    background-image: url(../images/al.png);
+    background-repeat: no-repeat;
+    background-size: 31px;
 }
 .playground.rightclick{
-    color: rgb(155, 65, 155);
-    /* background-image: url("../images/wall.jpg"); */
-    background: inherit;
+    background-image: url(../images/flag.png);
 }
 
 /* ///////////////////////////////// ANIMATION KEYFRAMES ///////////////////////// */
