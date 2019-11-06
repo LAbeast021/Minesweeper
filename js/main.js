@@ -35,18 +35,20 @@ $(".start").on("click", function(){
     render();
 })
 $(".container").on("click", "div", clickHandler)
-// ////// RIGHT CLICK FOR FLAGS //////////////////////
-// $('.container').bind('contextmenu','button', function(){
-//     if (this.which == 3){ // can also use button instead of which.
-//         // prevent default action.
-//         this.preventDefault(); }
-//     console.log("rasssss kilik");
-// })
+////// RIGHT CLICK FOR FLAGS //////////////////////
+
+$('.container ').on("contextmenu",function(evt){
+    evt.preventDefault();
+     if (evt.target.textContent === "")$(evt.target).toggleClass("rightclick");
+})
+
+
+
 
 
 // ////////////// FUNCTIONS /////////////////
 function clickHandler(){
-    if(this.value){
+    if(this.value && !this.classList.contains("rightclick")){
         divId = parseInt(this.id);
         divVal = this.value;
         // console.log(` id = ${this.id} and value = ${this.value}`);
@@ -66,52 +68,166 @@ function clickHandler(){
             }
         }    
     }
-    else{
+    else if(!this.classList.contains("rightclick")){
         console.log("YOU LOST")
     }
+
     num = parseInt(this.textContent);
+    if (num || num ===0 )this.style.backgroundColor = "black";
     this.classList.add (numbers[num]);
+    if(num === 0){
+        spray(divId,this);
+    } 
 }
-function boarderGuard (divVal, divId, clicked){
+
+
+function boarderGuard (divVal, divId, div){
     if(divVal === 1){ 
-            clicked.textContent = board[divId + 1] + board[divId + column] + (board[divId + column + 1])
+            div.textContent = board[divId + 1] + board[divId + column] + (board[divId + column + 1])
        return true;
     }
     else if(divVal === column){
-            clicked.textContent = board[divId - 1] + board[divId + column] + board[divId +( column - 1)]
+            div.textContent = board[divId - 1] + board[divId + column] + board[divId +( column - 1)]
         return true;
         ;}
     else if (divVal === column * row) {
-            clicked.textContent = board[divId - 1]  + board[divId - column] + board[divId - ( column + 1)]
+            div.textContent = board[divId - 1]  + board[divId - column] + board[divId - ( column + 1)]
         return true;
         ;}
     else if (divVal === (column*row) - column + 1) {
-            clicked.textContent = board[divId + 1]  + board[divId - column] + board[divId -  (column - 1)]
+            div.textContent = board[divId + 1]  + board[divId - column] + board[divId -  (column - 1)]
         
         return true;
         ;}
     else if (divVal/column === Math.floor((divVal+1)/column)){
-                clicked.textContent = board[divId - 1] + board[divId + column] + board[divId - column] + board[divId + column - 1] + board[divId - column - 1]
+                div.textContent = board[divId - 1] + board[divId + column] + board[divId - column] + board[divId + column - 1] + board[divId - column - 1]
             return true   
         }
     else if((divVal-1)/column === Math.floor(divVal/column)){
-            clicked.textContent = board[divId + 1] + board[divId + column] + board[divId - column] + board[divId + column + 1] + board[divId - column + 1]
+            div.textContent = board[divId + 1] + board[divId + column] + board[divId - column] + board[divId + column + 1] + board[divId - column + 1]
             return true;
         }
     else{
            return false;
-        }
+        };
 }
 function render(){
     $(".size, .difficulty").fadeOut(1000);
-    container.style["grid-template-columns"] = `repeat(${column}, 31px)`;
-    container.style["grid-template-row"] = `repeat(${row}, 31px)`;
+    container.style["grid-template-columns"] = `repeat(${column}, 35px)`;
+    container.style["grid-template-row"] = `repeat(${row}, 35px)`;
     for(i=0 ; i <(column * row) ; i++){
         squars = document.createElement('div');
         squars.id = i;
+        squars.classList.add("playground");
         squars.textContent = "";
         container.appendChild(squars);
-        bombs.includes(i) ? squars.classList.add("bomb") : squars.value = i+1;  
-    }}
-    $(".container").fadeOut(1000).fadeIn(4000);
+        bombs.includes(i) ? squars.classList.add("bomb") : squars.value = i+1; 
+    };
+    
+};
+
+
+function spray(divId , div){
+    // console.log(`${divId} is id  \n ${div} is the div`);
+    while(parseInt(document.getElementById(divId).textContent) === 0 && divId === column){
+    if (parseInt(document.getElementById(divId).textContent) === 0){
+        document.getElementById(divId+1).textContent = (board[(divId+1) + 1]) + (board[(divId+1) - column + 1]) + (board[(divId+1) - column ]) + (board[(divId+1) - column - 1]) + (board[(divId+1) - 1]) + (board[(divId+1) + column - 1]) + (board[(divId+1) + column]) + (board[(divId+1) + column + 1])
+          divId = divId+1; 
+          div = document.getElementById(divId+1);}
+          
+          
+        if (parseInt(document.getElementById(divId).textContent) === 0){
+            document.getElementById(divId-1).textContent = (board[(divId-1) + 1]) + (board[(divId-1) - column + 1]) + (board[(divId-1) - column ]) + (board[(divId-1) - column - 1]) + (board[(divId-1) - 1]) + (board[(divId-1) + column - 1]) + (board[(divId-1) + column]) + (board[(divId-1) + column + 1])
+           divId = divId-1;
+           div =  document.getElementById(divId-1);}
+           
+
+        if (parseInt(document.getElementById(divId).textContent) === 0){
+            document.getElementById(divId+column).textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+            divId = divId+column;
+            div = document.getElementById(divId+column)}
+        };
+        spray(divId, div);
+           
+
+
+        // document.getElementById(divId-column).textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+        //     spray(divId-column , document.getElementById(divId-column));
+
+
+        // document.getElementById(divId+(column-1)).textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+        //     spray(divId+(column-1 ), document.getElementById(divId+(column-1)));
+
+
+        // document.getElementById(divId+(column+1)).textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+        //     spray(divId+(column+1) , document.getElementById(divId+(column+1)));
+
+
+        // document.getElementById(divId-(column-1)).textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+        //     spray(divId-(column-1), document.getElementById(divId-(column-1)));
+
+
+        // document.getElementById(divId-(column+1)).textContent = (board[divId + 1]) + (board[divId - column + 1]) + (board[divId - column ]) + (board[divId - column - 1]) + (board[divId - 1]) + (board[divId + column - 1]) + (board[divId + column]) + (board[divId + column + 1])
+        //     spray(divId-(column+1), document.getElementById(divId-(column+1)));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //     if(divId === 1){ 
+        //         document.getElementById(divId-1).textContent = board[divId + 1] + board[divId + column] + (board[divId + column + 1])
+        //    return true;
+        // }
+        // else if(divId === column){
+        //     document.getElementById(divId-1).textContent = board[divId - 1] + board[divId + column] + board[divId +( column - 1)]
+        //     return true;
+        //     ;}
+        // else if (divId === column * row) {
+        //     document.getElementById(divId-1).textContent = board[divId - 1]  + board[divId - column] + board[divId - ( column + 1)]
+        //     return true;
+        //     ;}
+        // else if (divId === (column*row) - column + 1) {
+        //     document.getElementById(divId-1).textContent= board[divId + 1]  + board[divId - column] + board[divId -  (column - 1)]
+            
+        //     return true;
+        //     ;}
+        // else if (divId/column === Math.floor((divVal+1)/column)){
+        //     document.getElementById(divId-1).textContent= board[divId - 1] + board[divId + column] + board[divId - column] + board[divId + column - 1] + board[divId - column - 1]
+        //         return true   
+        //     }
+        // else if((divId-1)/column === Math.floor(divVal/column)){
+        //     document.getElementById(divId-1).textContent = board[divId + 1] + board[divId + column] + board[divId - column] + board[divId + column + 1] + board[divId - column + 1]
+        //         return true;
+        //     }
+        // else{
+        //        return false;
+        //     };
+        // if(divId ===1){
+        //     document.getElementById(divId-1).textContent =  board[divId + 1] + board[divId + column] + (board[divId + column + 1])
+            
+        // }
     
