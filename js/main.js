@@ -136,8 +136,14 @@ function borderGuard (divId){
                     div.value=false;
                     borderGuard(divId-1);
                     div.value=false;
+                } 
+                else if((divId-column) > 0){
+                    borderGuard(divId+1);
+                    div.value=false;
+                    borderGuard(divId-1);
+                    div.value=false;
 
-                }           
+                }          
             }
     else if(div.textContent == 0 && div.value && div.name !==""){
             return;
