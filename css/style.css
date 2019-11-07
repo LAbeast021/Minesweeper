@@ -71,6 +71,7 @@ body{
     background: rgb(50, 67, 71);
     border-radius: 120px;
     margin-left: 30%;
+    visibility: hidden;
     font-family: 'Yeon Sung', cursive;
     cursor: pointer;
 }
