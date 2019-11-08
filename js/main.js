@@ -19,11 +19,15 @@ let container = document.querySelector(".container");
 // //////////// EVENT LISTENER //////////////////////////////////////////////////////////////////////////
 
 $(".size").on("click", "button", function () {
+    $(".size button").hasClass("clicked") ?  $(".size button").removeClass("clicked") : this.classList.add("clicked");
+    this.classList.add("clicked");
     column = parseInt(this.value)
     column === 40 ? row = 25 : row = column
 });
 
 $(".difficulty").on("click", "button", function () {
+    $(".difficulty button").hasClass("clicked") ?  $(".difficulty button").removeClass("clicked") : $(this).addClass("clicked");
+    this.classList.add("clicked");
     bombPercentage = this.value * (column * row);
     board = new Array((column * row)).fill(0);
     for (i = 0; i <= bombPercentage - 1; i++) {
