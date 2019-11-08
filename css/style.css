@@ -6,8 +6,8 @@
 body{
     display: flex;
     flex-direction: column;
-    align-items: center;  
-    margin: 0;
+    align-items: center; 
+    margin-top: 0;
     margin-top:2% ;
     background-color: rgb(26, 25, 25);
 }
@@ -100,6 +100,7 @@ body{
     color: red;
     text-shadow: 3px 3px 3px black;
 }
+
 /* ///////////////////////////////////////// Numbers ///////////////////////////////////// */
 .green{
     color: rgb(21, 190, 21);
@@ -155,6 +156,7 @@ body{
     grid-column-gap: 3px;
     grid-row-gap: 3px;
     margin-bottom: 1%;
+    margin-top:5% ;
 }
 .playground{
     background-image: url(../images/astronaut-icon-vector.png);
@@ -175,6 +177,29 @@ body{
 .playground.rightclick{
     background-image: url(../images/flag.png);
 }
+/* ///////////////////////////////  RESTART PAGE //////////////////////////////////////////// */
+.lose{
+    color: white;
+    position: absolute;
+    display: none;
+    width: 120%;
+    height: 100%;
+    margin: -2%;
+    background: rgba(255, 0, 0, 0.288);
+    z-index: 10;
+    justify-content: center;
+}
+.win{
+    position: absolute;
+    display: none;
+    width: 120%;
+    height: 100%;
+    margin: -2%;
+    background: rgba(0, 255, 42, 0.13);
+    z-index: 10;
+    justify-content: center;
+}
+
 
 /* ///////////////////////////////// ANIMATION KEYFRAMES ///////////////////////// */
 /* @keyframes light{
