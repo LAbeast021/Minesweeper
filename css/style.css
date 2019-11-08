@@ -189,6 +189,18 @@ body{
     z-index: 10;
     justify-content: center;
 }
+.restart{
+    font-size: 30px;
+    text-align: center;
+    width: 20%;
+    height: 60px;
+    color: white;
+    border: 3px solid white;
+    background: rgb(50, 67, 71);
+    border-radius: 120px;
+    font-family: 'Yeon Sung', cursive;
+    cursor: pointer;
+}
 .win{
     position: absolute;
     display: none;
