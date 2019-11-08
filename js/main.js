@@ -95,6 +95,7 @@ function clickHandler() {
 
 function borderGuard(divId) {
     let div = document.getElementById(divId);
+    if(!div.classList.contains("rightclick")){
         if (divId === 0 && div.value) {
             div.name = "ltc";
             div.textContent = board[divId + 1] + board[divId + column] + (board[divId + column + 1])
@@ -176,7 +177,7 @@ function borderGuard(divId) {
         else if (div.textContent == 0 && div.value && div.name !== "") {
             return;
         }
-    
+    }  
 };
 
 function render() {
