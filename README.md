@@ -6,9 +6,9 @@
   
 * **Mines(aliens) will be placed in random locations**
   
-* **if player click a cell that does not contain a bomb, the number of the bombs in eight direction of that cell will be displayed.**
+* **if player clicks on a cell that does not contain a bomb, the number of the bombs in eight direction of that cell will be displayed.**
 * **if there are no bombs around it will check the same process for other eight cells**
-* **if the user click on a cell that contains a bomb the game is over**
+* **if the user clicks on a cell that contains a bomb the game is over**
 * **if all the cells are cleared and cells with bomb are untouched user wins.**
  # Image of **the** menu
 ![menu](../minesweeper/images/image&#32;1.png)
