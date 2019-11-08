@@ -11,11 +11,17 @@
 * **if the user clicks on a cell that contains a bomb the game is over**
 * **if all the cells are cleared and cells with bomb are untouched user wins.**
  # Image of **the** menu
+
 ![menu](../minesweeper/images/image&#32;1.png)
+
 # Image of the grid
+
 ![grid](../minesweeper/images/image&#32;2.png)
+
 # win 
+
 ![win](i../../images/image&#32;4.png)
+
 # lose
 ![lose](../minesweeper/images/image&#32;5.png);
 
