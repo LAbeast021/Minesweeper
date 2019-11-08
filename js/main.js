@@ -19,6 +19,10 @@ let container = document.querySelector(".container");
 // //////////// EVENT LISTENER //////////////////////////////////////////////////////////////////////////
 
 $(".size").on("click", "button", function () {
+    $(".difficulty").css("visibility","visible")
+    $("h3").css("display","block")
+    column=0;
+    row=0;
     $(".size button").hasClass("clicked") ?  $(".size button").removeClass("clicked") : this.classList.add("clicked");
     this.classList.add("clicked");
     column = parseInt(this.value)
@@ -26,6 +30,8 @@ $(".size").on("click", "button", function () {
 });
 
 $(".difficulty").on("click", "button", function () {
+    bombPercentage=0;
+    bombs=[];
     $(".difficulty button").hasClass("clicked") ?  $(".difficulty button").removeClass("clicked") : $(this).addClass("clicked");
     this.classList.add("clicked");
     bombPercentage = this.value * (column * row);
@@ -40,6 +46,8 @@ $(".difficulty").on("click", "button", function () {
 });
 
 $(".start").on("click", function () {
+    $("h3").css("display","none")
+    $("h2").css("display","none")
     $(".background").css("display", "none")
     this.style.display = "none";
     $("body").css("background-image", "url(images/sky.jpg")
