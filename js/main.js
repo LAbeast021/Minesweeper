@@ -71,6 +71,10 @@ $('.container ').on("contextmenu", function (evt) {
 // ////////////// FUNCTIONS //////////////////////////////////////////////////////////////////////////////////
 function render() {
     $(".size, .difficulty").css("display", "none");
+    $('nav').css("display", "block")
+    $('.container').css({"display":"grid","grid-template-rows":"repeat(25, 34px)","grid-template-columns":"repeat(40, 34px)","grid-column-gap":"3px","grid-row-gap":"3px",
+    "margin-bottom": "1%","margin-top":"5%"
+    })
     container.style["grid-template-columns"] = `repeat(${column}, 36px)`;
     container.style["grid-template-row"] = `repeat(${row}, 30px)`;
     for (i = 0; i < (column * row); i++) {
@@ -83,9 +87,9 @@ function render() {
             squars.name = "";
             squars.value = true;
         }
-        else if (bombs.includes(i)) {
-            document.getElementById(i).style.backgroundColor = "red";
-        }
+        // else if (bombs.includes(i)) {
+        //     document.getElementById(i).style.backgroundColor = "red";
+        // }
 
     };
 };
@@ -94,7 +98,7 @@ function clickHandler() {
         if (this.value && !this.classList.contains("rightclick")) {
             divId = parseInt(this.id);
             divVal = this.value;
-            console.log(` id = ${divId} and value = ${divVal} and name ${this.name}`);
+            // console.log(` id = ${divId} and value = ${divVal} and name ${this.name}`);
             borderGuard(divId);
         }
         else if (this.classList.contains("rightclick")) {
@@ -109,7 +113,7 @@ function clickHandler() {
                     }
                     else {
                         document.getElementById(i).classList.add("bomb");
-                        $(".lose").css({"display":"flex","flex-direction":"column","align-items":"center",})
+                        $(".lose").css({"display":"flex","flex-direction":"column","align-items":"center","justify-content":"center"})
                     }
                     gameClick = false;
                 }
@@ -199,12 +203,16 @@ function borderGuard(divId) {
 
 function win() {
     let count=0;
+    let flags=0;
     for (i = 0; i < (column * row); i++) {
         if (!bombs.includes(i)) {
             if(document.getElementById(i).textContent !== ""){
                 count += 1
             }
-            if(count === (((column*row)))-bombs.length){
+            if(document.getElementById(i).classList.contains("rightclick")){
+                flags+=1
+            }
+            if(count === (((column*row)))-bombs.length && flags === bombs.length){
                 $(".win").css({"display":"flex","flex-direction":"column","align-items":"center"})
             }
         }
