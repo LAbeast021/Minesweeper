@@ -36,19 +36,25 @@ $(".difficulty").on("click", "button", function () {
     this.classList.add("clicked");
     bombPercentage = this.value * (column * row);
     board = new Array((column * row)).fill(0);
-    for (i = 0; i <= bombPercentage -1; i++) {
-        randomBombs = Math.floor(Math.random() * (column * row))
-        bombs.push(randomBombs);
-        board.splice(bombs[i], 1, 1);
-    };
+    bombCreator()
+    function bombCreator(i=0){
+        for(i ; i <= bombPercentage -1; i++){
+            if(bombs.length === bombPercentage) return
+            randomBombs = Math.floor(Math.random() * (column * row))
+            if(bombs.includes(randomBombs)){
+                return bombCreator(i)
+            }
+            bombs.push(randomBombs);
+            board.splice(bombs[i], 1, 1);
+
+        }
+    }
 
     $(".start").css({"visibility":"visible"});
 });
 
 $(".start").on("click", function () {
-    $("h3").css("display","none")
-    $("h2").css("display","none")
-    $(".background").css("display", "none")
+    $(`h3, h2, .background`).css("display","none")
     this.style.display = "none";
     $("body").css("background-image", "url(images/sky.jpg")
     render();
@@ -209,13 +215,14 @@ function win() {
             if(document.getElementById(i).textContent !== ""){
                 count += 1
             }
-            if(document.getElementById(i).classList.contains("rightclick")){
-                flags+=1
-            }
-            if(count === (((column*row)))-bombs.length && flags === bombs.length){
+            else if(document.getElementById(i).classList.contains("rightclick")){
+                flags +=1
+                console.log(flags)
+            };
+            if(count === (((column*row)))-bombs.length && parseInt(flags) === parseInt(bombs.length)){
                 $(".win").css({"display":"flex","flex-direction":"column","align-items":"center"})
             }
-        }
+        };
     }
 };
 function colorChanger() {
@@ -235,7 +242,16 @@ function colorChanger() {
 
 
 
+// Line 49-50 combined together
+// $("h2").css("display","none")
+// $(".background").css("display", "none")
 
+// LIne 38 for bombs
+// for (i = 0; i <= bombPercentage -1; i++) {
+//     randomBombs = Math.floor(Math.random() * (column * row))
+//     bombs.push(randomBombs);
+//     board.splice(bombs[i], 1, 1);
+// };
 
 
 
