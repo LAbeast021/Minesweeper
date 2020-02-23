@@ -14,9 +14,12 @@ let column, row, bombPercentage, board, randomBombs, divVal, divId, flags, gameC
 var bombs = [];
 flags = [];
 gameClick = true;
+let seconds = 0;
+let time;
 // ///////////// CACHED ////////////////////////////////////////////////////////////////////////////////
 let container = document.querySelector(".container");
 let flagNum = document.getElementById("numberofflags");
+let TIMER = document.getElementById("timertext");
 // //////////// EVENT LISTENER //////////////////////////////////////////////////////////////////////////
 
 $(".size").on("click", "button", function () {
@@ -58,6 +61,7 @@ $(".start").on("click", function () {
     $(`h3, h2, .background`).css("display","none")
     this.style.display = "none";
     $("body").css("background-image", "url(images/sky.jpg");
+    time = setInterval(timer,1000);
     render();
 });
 $(".restart").click(function(){
@@ -80,12 +84,14 @@ $('.container ').on("contextmenu", function (evt) {
 })
 // ////////////// FUNCTIONS //////////////////////////////////////////////////////////////////////////////////
 function render() {
+    TIMER.innerHTML = formatTime(seconds);
     flagNum.innerHTML = `${bombs.length}`
     $(".size, .difficulty").css("display", "none");
     $('nav').css({"visibility":"visible","height":"200%"})
     $('.container').css({"display":"grid","grid-template-rows":"repeat(25, 34px)","grid-template-columns":"repeat(40, 34px)","grid-column-gap":"3px","grid-row-gap":"3px",
     "margin-bottom": "1%","margin-top":"5%"
     })
+    timer()
     container.style["grid-template-columns"] = `repeat(${column}, 36px)`;
     container.style["grid-template-row"] = `repeat(${row}, 30px)`;
     for (i = 0; i < (column * row); i++) {
@@ -125,6 +131,7 @@ function clickHandler() {
                     else {
                         document.getElementById(i).classList.add("bomb");
                         $(".lose").css({"display":"flex","flex-direction":"column","align-items":"center","justify-content":"center"})
+                        myStopFunction()
                     }
                     gameClick = false;
                 }
@@ -223,9 +230,18 @@ function win() {
             var flagsNum = document.querySelectorAll('.rightclick').length
             if(count === (((column*row)))-bombs.length && parseInt(flagsNum) === parseInt(bombs.length)){
                 $(".win").css({"display":"flex","flex-direction":"column","align-items":"center"})
+                myStopFunction()
+                for (i = 0; i < (column * row); i++) {
+                    if (bombs.includes(i)) {
+                        if (document.getElementById(i).classList.contains("rightclick")) {
+                            document.getElementById(i).style.backgroundImage = "url(images/al_flag.png)"
+                            }
+                        }
+                    }
             }
         };
     }
+    
 };
 function colorChanger() {
     for (i = 0; i < (column * row); i++) {
@@ -235,7 +251,27 @@ function colorChanger() {
             document.getElementById(i).style.backgroundColor = "black"
         }
     }
-}
+};
+
+// function timer (){
+//      var time =  setInterval(() => {
+//         seconds = seconds + 1
+//          TIMER.innerHTML = formatTime(seconds)
+//     }, 1000);
+// }
+function timer (){
+    seconds = seconds + 1
+    TIMER.innerHTML = formatTime(seconds)
+} 
+function myStopFunction() {
+    clearInterval(time);
+  }
+function formatTime(seconds) {
+    let mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    let secs = (seconds % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+  }
+
 
 
 

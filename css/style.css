@@ -29,14 +29,15 @@ nav{
     align-items: center;
     width: 50%;
     height: 90%;
-    border: 3px solid rgb(0, 255, 179);
+    border: 3px dotted rgb(0, 153, 255);
 }
 #timer{
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 50%;
     height: 90%;
-    border: 3px solid red;
+    border: 3px dotted red;
 }
 .background{
     margin-left: 3.1%;
@@ -314,6 +315,9 @@ p .arrow{
     border: 3px solid black;
     color: red;
     text-shadow: 3px 3px 3px black;
+}
+button{
+    outline: none;
 }
 
 
