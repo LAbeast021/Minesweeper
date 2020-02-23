@@ -14,10 +14,29 @@ body{
     height: 200px;
 }
 nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     width: 50%;
-    height: 300px;
-    border: 3px solid greenyellow;
-    display: none;
+    border: 3px dotted rgb(47, 255, 227);
+    visibility: hidden;
+    font-family: 'Yeon Sung', cursive;
+    color: white;
+    letter-spacing: 3px;
+}
+#flagnumber{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: 90%;
+    border: 3px solid rgb(0, 255, 179);
+}
+#timer{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: 90%;
+    border: 3px solid red;
 }
 .background{
     margin-left: 3.1%;
@@ -195,6 +214,10 @@ p .arrow{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.container{
+    transform: rotate3d(1,1,1 , 360deg);
+    transition: 6s;
 }
 /* .container{
     display: grid;

@@ -16,6 +16,7 @@ flags = [];
 gameClick = true;
 // ///////////// CACHED ////////////////////////////////////////////////////////////////////////////////
 let container = document.querySelector(".container");
+let flagNum = document.getElementById("numberofflags");
 // //////////// EVENT LISTENER //////////////////////////////////////////////////////////////////////////
 
 $(".size").on("click", "button", function () {
@@ -56,7 +57,7 @@ $(".difficulty").on("click", "button", function () {
 $(".start").on("click", function () {
     $(`h3, h2, .background`).css("display","none")
     this.style.display = "none";
-    $("body").css("background-image", "url(images/sky.jpg")
+    $("body").css("background-image", "url(images/sky.jpg");
     render();
 });
 $(".restart").click(function(){
@@ -68,16 +69,20 @@ $(".container").on("click", "div", clickHandler)
 ///////////// RIGHT CLICK FOR FLAGS ///////////////////////////////////////////////////////////////////////////
 
 $('.container ').on("contextmenu", function (evt) {
+    evt.preventDefault();
+    if(flagNum.innerHTML == 0 && !evt.target.classList.contains("rightclick")) return
     if (gameClick === true) {
-        evt.preventDefault();
         flags.includes(evt.target.id) ? flags = flags.filter(item => item !== evt.target.id) : flags.push(evt.target.id);
+        flags.includes(evt.target.id) ? flagNum.innerHTML = `${parseInt(flagNum.innerHTML) - 1}` : flagNum.innerHTML = `${parseInt(flagNum.innerHTML) + 1}`
         if (evt.target.textContent === "") $(evt.target).toggleClass("rightclick");
     }
+    win();
 })
 // ////////////// FUNCTIONS //////////////////////////////////////////////////////////////////////////////////
 function render() {
+    flagNum.innerHTML = `${bombs.length}`
     $(".size, .difficulty").css("display", "none");
-    $('nav').css("display", "block")
+    $('nav').css({"visibility":"visible","height":"200%"})
     $('.container').css({"display":"grid","grid-template-rows":"repeat(25, 34px)","grid-template-columns":"repeat(40, 34px)","grid-column-gap":"3px","grid-row-gap":"3px",
     "margin-bottom": "1%","margin-top":"5%"
     })
@@ -215,11 +220,8 @@ function win() {
             if(document.getElementById(i).textContent !== ""){
                 count += 1
             }
-            else if(document.getElementById(i).classList.contains("rightclick")){
-                flags +=1
-                console.log(flags)
-            };
-            if(count === (((column*row)))-bombs.length && parseInt(flags) === parseInt(bombs.length)){
+            var flagsNum = document.querySelectorAll('.rightclick').length
+            if(count === (((column*row)))-bombs.length && parseInt(flagsNum) === parseInt(bombs.length)){
                 $(".win").css({"display":"flex","flex-direction":"column","align-items":"center"})
             }
         };
